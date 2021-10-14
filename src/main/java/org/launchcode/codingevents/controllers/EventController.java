@@ -1,6 +1,7 @@
 package org.launchcode.codingevents.controllers;
 
 
+import org.launchcode.codingevents.data.EventData;
 import org.launchcode.codingevents.models.Events;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class EventController {
 
-    private static List<Events> events = new ArrayList<>();
+    //private static List<Events> events = new ArrayList<>();
 
     @GetMapping
     public String displayAllEvents(Model model) {
@@ -27,7 +28,8 @@ public class EventController {
 //        events.add("Vets in Coding");
 //        events.add("Hackerthon");
 //        model.addAttribute("events", events);
-        model.addAttribute("events", events);
+        model.addAttribute("title", "All Events");
+        model.addAttribute("events", EventData.getAll());
         return "events/index";
     }
 
@@ -40,7 +42,7 @@ public class EventController {
     //lives at /events/create
     @PostMapping("create")
     public String createEvent(@RequestParam String eventName, @RequestParam String eventDescription){
-        events.add(new Events(eventName, eventDescription));
+        EventData.add(new Events(eventName, eventDescription));
         return "redirect:";
     }
 
