@@ -5,10 +5,7 @@ import org.launchcode.codingevents.data.EventData;
 import org.launchcode.codingevents.models.Events;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -40,11 +37,19 @@ public class EventController {
     }
 
     //lives at /events/create
+//    @PostMapping("create")
+//    public String createEvent(@RequestParam String eventName, @RequestParam String eventDescription, @RequestParam String contactEmail){
+//        EventData.add(new Events(eventName, eventDescription, contactEmail));
+//        return "redirect:";
+//    }
+
+    //lives at /events/create
     @PostMapping("create")
-    public String createEvent(@RequestParam String eventName, @RequestParam String eventDescription){
-        EventData.add(new Events(eventName, eventDescription));
+    public String processCreateEventForm(@ModelAttribute Events newEvent){
+        EventData.add(newEvent);
         return "redirect:";
     }
+
 
     @GetMapping("delete")
     public String displayDeleteEventForm(Model model) {
