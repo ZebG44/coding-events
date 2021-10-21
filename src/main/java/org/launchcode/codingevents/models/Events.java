@@ -21,15 +21,21 @@ public class Events {
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
-    public Events(String name, String description, String contactEmail) {
+    private EventType type;
+
+    public Events(String name, String description, String contactEmail, EventType type) {
+        this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
+        this.type = type;
+
+    }
+
+    public Events() {
         this.id = nextId;
         nextId++;
     }
-
-    public Events() {}
 
     public String getName() {
         return name;
@@ -57,6 +63,14 @@ public class Events {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
     }
 
     @Override
