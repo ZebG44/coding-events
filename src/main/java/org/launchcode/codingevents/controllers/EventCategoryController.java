@@ -6,9 +6,13 @@ import org.launchcode.codingevents.models.EventCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("eventCategories")
@@ -17,7 +21,6 @@ public class EventCategoryController {
 
     @Autowired
     private EventCategoryRepository eventCategoryRepository;
-    private Error errors;
 
 //    displayAllEvents
 //    renderCreateEventCategoryForm
@@ -38,15 +41,15 @@ public class EventCategoryController {
     }
 
         @PostMapping("create")
-                public String processCreateEventCategoryForm(EventCategory eventCategory, Model model) {
+                public String processCreateEventCategoryForm(@Valid @ModelAttribute EventCategory eventCategory, Errors errors, Model model) {
 
-//            if (errors.hasErrors()) {
-//                model.addAttribute("title", "Create Category");
-//                return "eventCategories/create";
-//            }
+            if (errors.hasErrors()) {
+                model.addAttribute("title", "Create Category");
+                model.addAttribute(new EventCategory());
+                return "eventCategories/create";
+            }
 
-            model.addAttribute("title", "Create Category");
-            model.addAttribute(new EventCategory());
+            eventCategoryRepository.save(eventCategory);
             return "redirect:";
         }
 
