@@ -1,8 +1,8 @@
 package org.launchcode.codingevents.controllers;
 
 
+import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventsRepository;
-import org.launchcode.codingevents.models.EventType;
 import org.launchcode.codingevents.models.Events;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +19,9 @@ public class EventController {
 
     @Autowired
     private EventsRepository eventsRepository;
+
+    @Autowired
+    private EventCategoryRepository eventCategoryRepository;
 
     //findAll, save, findById
 
@@ -42,7 +45,8 @@ public class EventController {
     public String renderCreateEventForm(Model model) {
         model.addAttribute("title", "Create Event");
         model.addAttribute(new Events());
-        model.addAttribute("types", EventType.values());
+        model.addAttribute("categories", eventCategoryRepository.findAll());
+//        model.addAttribute("types", EventType.values());
         return "events/create";
     }
 
