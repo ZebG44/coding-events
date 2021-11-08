@@ -38,7 +38,7 @@ public class Events extends AbstractEntity {
         this.description = description;
         this.contactEmail = contactEmail;
         this.eventCategory = eventCategory;
-//        this.type = type;;
+//        this.type = type;
     }
 
     public Events() {
